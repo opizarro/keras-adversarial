@@ -44,9 +44,11 @@ class AdversarialModel(Model):
         if base_model is not None and player_models is not None:
             raise ValueError("Specify base_model or player_models, not both")
         if base_model is not None:
-            self.layers = 0
-            self.layers = []
-            for i in range(self.player_count):
+            # hack to sidestep blank assignment
+            #self.layers = []
+            self.layers = Model(base_model.inputs,
+                              fix_names(base_model(base_model.inputs), base_model.output_names))
+            for i in range(self.player_count - 1):
                 # duplicate base model
                 model = Model(base_model.inputs,
                               fix_names(base_model(base_model.inputs), base_model.output_names))
