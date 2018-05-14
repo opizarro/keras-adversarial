@@ -44,7 +44,8 @@ class AdversarialModel(Model):
         if base_model is not None and player_models is not None:
             raise ValueError("Specify base_model or player_models, not both")
         if base_model is not None:
-            self._layers = []
+            self.layers = 0
+            self.layers = []
             for i in range(self.player_count):
                 # duplicate base model
                 model = Model(base_model.inputs,
